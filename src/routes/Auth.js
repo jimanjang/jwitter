@@ -46,7 +46,7 @@ const Auth = () => {
       }
       const data = await authService.signInWithPopup(provider);
       console.log("socialLoggedUser: ", data);
-  };
+  }
   return (
     <div>
       <form onSubmit={onSubmit}>
