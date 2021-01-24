@@ -43,7 +43,11 @@ const Home = ({ userObj }) => {
         </form>
         <div>
             {jweets.map((jweet) => (
-                <Jweet key = {jweet.id} jweetObj={jweet} isOwner={jweet.creatorId === userObj.uid} />
+                <Jweet 
+                key = {jweet.id} 
+                jweetObj={jweet} 
+                isOwner={jweet.creatorId === userObj.uid} 
+                />
         ))}
         </div>
     </div>
