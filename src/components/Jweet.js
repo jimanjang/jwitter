@@ -9,7 +9,7 @@ const Jweet = ({ jweetObj, isOwner }) => {
         if(ok){
             await dbService.doc(`jweets/${jweetObj.id}`).delete();
         }
-    }
+    };
     const toggleEditing = () => setEditing((prev) => !prev);
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -28,6 +28,8 @@ const Jweet = ({ jweetObj, isOwner }) => {
         <div>
           {editing ? (
             <>
+              {isOwner && 
+              <>
               <form onSubmit={onSubmit}>
                 <input
                   type="text"
@@ -38,7 +40,7 @@ const Jweet = ({ jweetObj, isOwner }) => {
                 />
                 <input type="submit" value="Update Jweet" />
               </form>
-              <button onClick={toggleEditing}>Cancel</button>
+              <button onClick={toggleEditing}>Cancel</button> </>}
             </>
           ) : (
             <>
