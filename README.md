@@ -1,3 +1,1 @@
-if you want to show?
-  https://jimanjang.github.io/jwitter/#/
-click here!
+If you want to see this, click https://jimanjang.github.io/jwitter/#/
