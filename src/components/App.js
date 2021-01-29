@@ -1,25 +1,49 @@
-import React, { useState, useEffect } from "react";
-import AppRouter from "components/Router";
-import { authService } from "fbase";
+import React, { useEffect, useState } from "react";
+import AppRouter from "components/AppRouter";
+import { authService } from "SetupFirebase";
 
 function App() {
-  const [init, setInit] = useState(false);
-  const [userObj, setUserObj ] = useState(null);
+  const [init, setInint] = useState(false);
+  const [userObj, setUserObj] = useState(null);
+
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        setUserObj(user);
-      } 
-      setInit(true);
+        setUserObj({
+          displayName: user.displayName,
+          uid: user.uid,
+          updateProfile: (args) => user.updateProfile(args),
+        });
+        console.log("loggedIn User", user);
+      } else {
+        setUserObj(null);
+      }
+      setInint(true);
     });
   }, []);
+
+  const refreshUser = () => {
+    const user = authService.currentUser;
+    console.log("refreshUser: ", user);
+    setUserObj({
+      displayName: user.displayName,
+      uid: user.uid,
+      updateProfile: (args) => user.updateProfile(args),
+    });
+  };
+
   return (
     <>
       {init ? (
-      <AppRouter isLoggedIn={Boolean(userObj)} userObj={userObj}/> 
-      ): (
-        "Initializing..."
+        <AppRouter
+          refreshUser={refreshUser}
+          isLoggedIn={Boolean(userObj)}
+          userObj={userObj}
+        />
+      ) : (
+        "Initailizing..."
       )}
+      {/* <footer>&copy; {new Date().getFullYear()} Nwitter</footer> */}
     </>
   );
 }
